@@ -62,7 +62,7 @@ num_samples=sum(nco_count+sco_count, na.rm = TRUE)
 
 #merge with treatment data
 
-yv_merged <- merge(yv, backcross, by.x = "Vial..", by.y = "ï..Vial.Number", all=T)
+yv_merged <- merge(yv, backcross, by.x = "Vial..", by.y = "Ã¯..Vial.Number", all=T)
 yv_merged = na.omit(yv_merged)
 yv_merged=na.omit(yv_merged)
 
