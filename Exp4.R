@@ -413,3 +413,24 @@ fit4d=glm(cbind(num_CO_3,num_NCO_3)~(1|F1.Vial)+Treatment,data=dataset2,
 summary(fit4d)
 exp(coef(fit4d)[3]) #At high temperature, odds of crossover are this times as likely as odds of crossover at low temperature for day y
 
+
+#Odds ratios entered manually into excel.
+exp4=read.csv(file="exp4.csv", header=T)
+exp4$time=as.character(exp4$time)
+
+pdf("Odds4.pdf")
+exp4_odds=ggplot(data=exp4, aes(x=time, y=sdy, group=1)) +
+  geom_line(color= "red",size=2)+
+  geom_errorbar(aes(ymin=sdy-sd1, ymax=sdy+sd1), width=.2, position=position_dodge(0.05))+
+  geom_line(data=exp4, aes(x=time, y=yse, group=1), color= "blue",size=2)+
+  geom_errorbar(aes(ymin=yse-sd2, ymax=yse+sd2), width=.2, position=position_dodge(0.05))+
+  theme_bw()+
+  theme_update(text = element_text(size=40))+
+  theme(panel.background = element_blank(), axis.line = element_line(colour = "black"))+
+  geom_hline(yintercept=1, linetype="dashed", color = "grey",size=1)+
+  ylim(0.6,1.6)+
+  ylab("odds")+
+  scale_x_discrete(name="Days", labels=c("1-3","4-6","7-9","10-12"))+
+  ggtitle("Odd Ratios for experiment 4")
+exp4_odds
+dev.off()
